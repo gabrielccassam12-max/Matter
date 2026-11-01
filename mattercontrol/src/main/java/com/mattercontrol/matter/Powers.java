@@ -16,6 +16,7 @@ import net.minecraft.network.packet.s2c.play.EntityVelocityUpdateS2CPacket;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -55,8 +56,12 @@ public final class Powers {
         w.playSound(null, pos, e, SoundCategory.PLAYERS, vol, pitch);
     }
 
-    private static void sound(ServerWorld w, Vec3d at, BlockState s, float vol, float pitch) {
-        w.playSound(null, BlockPos.ofFloored(at), s.getSoundGroup().getPlaceSound(), SoundCategory.PLAYERS, vol, pitch);
+    private static void sound(ServerWorld w, BlockPos pos, BlockState s, float vol, float pitch) {
+        w.playSound(null, pos, s.getSoundGroup().getPlaceSound(), SoundCategory.PLAYERS, vol, pitch);
+    }
+
+    private static void sound(ServerWorld w, BlockPos pos, RegistryEntry<SoundEvent> e, float vol, float pitch) {
+        w.playSound(null, pos, e.value(), SoundCategory.PLAYERS, vol, pitch);
     }
 
     private static float dmg(double base) {
